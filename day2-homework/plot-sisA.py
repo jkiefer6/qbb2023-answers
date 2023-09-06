@@ -33,11 +33,32 @@ expression = data[row, cols]
 x = samples[cols]
 y = expression
 
+
+#Adding male data
+for i in range(len(transcripts)):
+    if transcripts[i] == 'FBtr0073461':
+        row = i
+
+cols2 = []
+for i in range(len(samples)):
+    if not "female" in samples[i]:
+        cols2.append(i)
+
+# Subset data of interest
+expression2 = data[row, cols2]
+
+
+# Prepare data
+x2 = samples[cols2]
+y2 = expression2
+
 # Plot data
-fig, ax = plt.subplots()
-ax.set_title( "Female Data Only FBtr0073461" )
+
+fig, (ax) = plt.subplots()
+ax.set_title( "Combined Data Only FBtr0073461" )
 ax.plot( x, y )
-fig.savefig( "Female Data Only FBtr0073461.png" )
+ax.plot( x2, y2)
+fig.savefig( "Combined-Data-FBtr0073461.png" )
 plt.close( fig )
 
 
