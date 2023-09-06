@@ -52,13 +52,35 @@ expression2 = data[row, cols2]
 x2 = samples[cols2]
 y2 = expression2
 
-# Plot data
+#Creating 2* male Data (hint: 2 * np.array( y )))
+for i in range(len(transcripts)):
+    if transcripts[i] == 'FBtr0073461': #keep this the same
+        row = i
 
+cols2 = []
+for i in range(len(samples)):
+    if not "female" in samples[i]: #keep this the same
+        cols2.append(i)
+
+# Subset data of interest
+expression2 = data[row, cols2]
+
+
+# Prepare data
+x2 = samples[cols2]
+y3 = 2 * np.array(expression2)
+
+
+
+# Plot data
 fig, (ax) = plt.subplots()
-ax.set_title( "Combined Data Only FBtr0073461" )
+ax.set_title( "All Combined Data Only FBtr0073461" )
 ax.plot( x, y )
 ax.plot( x2, y2)
-fig.savefig( "Combined-Data-FBtr0073461.png" )
+ax.plot(x2, y3)
+
+#plt.show()
+fig.savefig( "All-Combined-Data-FBtr0073461.png" )
 plt.close( fig )
 
 
