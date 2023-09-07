@@ -5,6 +5,59 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+f = open("all_annotated.csv", "r")
+
+lines = f.readlines()
+
+sample = []
+data = []
+transcripts = []
+firstline = []
+secondline = []
+thirdline = []
+
+#the short way:
+for i in range(len(lines)):
+    line = lines[i].rstrip()   #lines at i r strip- new item in list
+    line_list = line.split(",") #splitting lines, the list we just made above
+    firstline.append(line_list)
+    if i == 0:  #only add when i = 0
+        sample = line_list[2:]
+    if i != 0:
+        transcripts.append(line_list[0])
+        data.append(line_list[2:])
+
+
+#the long way that i worked out first:
+for i in range(len(lines)):
+    line = lines[i].rstrip()   #lines at i r strip- new item in list
+    line_list = line.split(",") #splitting lines, the list we just made above
+    firstline.append(line_list)
+    if i == 0:  #only add when i = 0
+        sample = line_list[2:]
+
+for i in range(len(lines)):
+    line = lines[i].rstrip()   #lines at i r strip- new item in list
+    line_list = line.split(",") #splitting lines, the list we just made above
+    secondline.append(line_list)
+    if i != 0:  #ignore first row
+        transcripts.append(line_list[0])  #append if you want to build a dynamic list vs equal if you want to save an already amde list
+
+for i in range(len(lines)):
+    line = lines[i].rstrip()   #lines at i r strip- new item in list
+    line_list = line.split(",") #splitting lines, the list we just made above
+    thirdline.append(line_list)
+    if i != 0:  #ignore first row
+        data.append(line_list[2:])  #append if you want to build a dynamic list vs equal if you want to save an already amde list
+
+
+
+
+
+
+#print(sample)
+
+"""
 transcripts = np.loadtxt( "all_annotated.csv", delimiter=",", usecols=0, dtype="<U30", skiprows=1 )
 print( "transcripts: ", transcripts[0:5] )
 
@@ -13,22 +66,27 @@ print( "samples: ", samples[0:5] )
 
 data = np.loadtxt( "all_annotated.csv", delimiter=",", dtype=np.float32, skiprows=1, usecols=range(2, len(samples) + 2) )
 print( "data: ", data[0:5, 0:5] )
+"""
+
+"""
 
 # Find row with transcript of interest
-for i in range(len(transcripts)):
-    if transcripts[i] == 'FBtr0073461':
-        row = i
+#for i in range(len(transcripts)):
+    #if transcripts[i] == 'FBtr0073461':
+        #row = i
 
 # Find columns with samples of interest
-cols = []
-for i in range(len(samples)):
-    if "female" in samples[i]:
-        cols.append(i)
+#cols = []
+#for i in range(len(samples)):
+    #if "female" in samples[i]:
+        #cols.append(i)
 
 # Subset data of interest
-expression = data[row, cols]
+#expression = data[row, cols]
 
+"""
 
+"""
 # Prepare data
 x = samples[cols]
 y = expression
@@ -84,8 +142,8 @@ ax.set_xlabel("Developmental Stage")
 ax.set_ylabel("mRNA Abundance (RPKM)")
 ax.set_title("sisA")
 
-#plt.show()
-fig.savefig( "Final-Combined-Data-FBtr0073461.png" )
-plt.close( fig )
-
+plt.show()
+#fig.savefig( "Final-Combined-Data-FBtr0073461.png" )
+#plt.close( fig )
+"""
 
