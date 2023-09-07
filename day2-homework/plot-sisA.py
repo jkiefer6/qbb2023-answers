@@ -4,8 +4,21 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-#Exercise 2:
+#Exercise 3 code for Unix:
 
+git log
+#the six digit id of my original file: 
+git checkout 022644 code.py
+
+#then to commit changes:
+git add plot-sisA.py
+git commit -m "Restoring original file"
+git push
+check on github.com
+
+
+#Exercise 2:
+"""
 f = open("all_annotated.csv", "r")
 
 lines = f.readlines()
@@ -58,7 +71,7 @@ for i in range(len(lines)):
 
 #Exercise 1
 
-"""
+
 transcripts = np.loadtxt( "all_annotated.csv", delimiter=",", usecols=0, dtype="<U30", skiprows=1 )
 print( "transcripts: ", transcripts[0:5] )
 
