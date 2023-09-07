@@ -4,6 +4,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+#Exercise 2:
 
 f = open("all_annotated.csv", "r")
 
@@ -55,7 +56,7 @@ for i in range(len(lines)):
 
 
 
-#print(sample)
+#Exercise 1
 
 """
 transcripts = np.loadtxt( "all_annotated.csv", delimiter=",", usecols=0, dtype="<U30", skiprows=1 )
