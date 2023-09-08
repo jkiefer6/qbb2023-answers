@@ -69,8 +69,18 @@ for i in range(40):
         x_data_ex2.append(index) 
     ax.plot(x_data_ex2, generation_data)
 
-plt.show()
+#plt.show()
 
+#Pt. 2 - run model 1000 times and create a histogram (dot hist) of time to fixation
+
+time_to_fix = []
+for i in range(1000):
+    generation_data = wright_fisher_equation(0.53, 300)
+    time_to_fix.append(len(generation_data))
+
+fig, ax = plt.subplots()
+ax.hist(time_to_fix)
+plt.show()
 
 
 
