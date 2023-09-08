@@ -183,3 +183,34 @@ ax.set_xlabel("Starting Allele Frequency")
 ax.set_ylabel("Avergae Time to Fixation")
 plt.show()
 
+"""
+question 1 : Understanding the plot of pop size vs allele frequency
+    In this plot, as population size increases along the x axis, average time to fixation
+    also increases. This makes sense because as number of individuals
+    increases, the number of chromosomes also increases. Therefore, in order for genetic drift
+    to be "achieved", more alleles have to be changed to reach fixation. Therefore, more genertations
+    are required for these alleles to become fixed. So then, average time to fixation increases
+    along with population size. 
+
+question 2 : Changing the assumptions of W-F model (constant pop size)
+    The Wright-Fisher model, the model assumes that population size remains constant. If population
+    size changed every generation, then time to fixation would liekly shift as well. Within the model
+    changing population size, increased time to fixation. This suggests then that if pop size shifted
+    every generation, if the pop size increased, time to fixation would also increase. Inversely, if the 
+    population died off, then time to fixation would decrease. Therefore, a model that allows for 
+    some variability in pop size, would also see more dynamic changes in time to fixation. Nature 
+    violates the constant population size all of the time. Not every individual reproduces in every generation 
+    and populations can expereince  catalysmic events (fire, flood, etc.) that may result in a dramatic reduction of 
+    individuals. If a population experienced this, the time for fixation for a specific allele 
+    would be much accleerated when compared to the population before such an event. 
+question 3 : Changing the assumptions of W-F model (random mating)
+    The Wright-Fisher model assumes that mating between individuals is random. However in nature most of the time,
+    mating is not random. But rather mates are selected according to traits that make them more attarctive to other
+    organisms or traits that allow them to live longer than their peers. For example, if an allele increased the 
+    ability of an organism to survive (ie better hunting or better blending in to surroundings) then this organism
+    has a greater probabilty of surviving to aduthood and passing on their alleles. This would in turn affect the 
+    time to fixation for a specific allele. If mates with the allele were favored over those without, 
+    the time to fixation would decrease as mates with the allele would preferentially be able to pass on their 
+    alleles increasing the frequency of the allele in the next populations. The inverse would also be true. 
+
+
