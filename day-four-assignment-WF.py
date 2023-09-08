@@ -35,7 +35,7 @@ def wright_fisher_equation (starting_allele_freq, starting_pop_size):
 
 generation_data = wright_fisher_equation(0.53, 300)
 
-print(len(generation_data))
+#print(len(generation_data))
 
 #create a plot of allele frequency over time throughout your simulation. I.e. the X axis is the generation, the Y axis is the frequency of your allele at that generation.
 
@@ -50,4 +50,33 @@ fig, ax = plt.subplots()
 ax.plot(x_data, generation_data)
 ax.set_xlabel("Generations")
 ax.set_ylabel("Allele Frequency")
+#plt.show()
+
+
+#Exercise 2:
+#Run your model repeatedly (at least 30 iterations) and visualize all your allele frequency trajectories together on one plot. Remember that you can lines to a matplotlib figure using a for loop.
+
+
+
+
+fig, ax = plt.subplots()
+for i in range(40):
+    generation_data = wright_fisher_equation(0.53, 300)
+    x_data_ex2 = []
+    index = 0
+    for value in range(len(generation_data)):
+        index += 1
+        x_data_ex2.append(index) 
+    ax.plot(x_data_ex2, generation_data)
+
 plt.show()
+
+
+
+
+
+
+
+
+
+
