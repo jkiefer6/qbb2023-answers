@@ -138,6 +138,48 @@ fig, ax = plt.subplots()
 ax.plot(x_data_2, y_data)
 ax.set_xlabel("Population Size")
 ax.set_ylabel("Avergae Time to Fixation")
-plt.show()
+#plt.show()
 
+#Pt. 2
+
+time_to_fix = []
+for i in range(10):
+    generation_data = wright_fisher_equation(0.1, 1000)
+    time_to_fix.append(len(generation_data))
+avg_fix_010 = my_mean(time_to_fix)
+
+
+time_to_fix = []
+for i in range(10):
+    generation_data = wright_fisher_equation(0.3, 1000)
+    time_to_fix.append(len(generation_data))
+avg_fix_030 = my_mean(time_to_fix)
+
+time_to_fix = []
+for i in range(10):
+    generation_data = wright_fisher_equation(0.5, 1000)
+    time_to_fix.append(len(generation_data))
+avg_fix_050 = my_mean(time_to_fix)
+
+time_to_fix = []
+for i in range(10):
+    generation_data = wright_fisher_equation(0.7, 1000)
+    time_to_fix.append(len(generation_data))
+avg_fix_070 = my_mean(time_to_fix)
+
+time_to_fix = []
+for i in range(10):
+    generation_data = wright_fisher_equation(0.9, 1000)
+    time_to_fix.append(len(generation_data))
+avg_fix_090 = my_mean(time_to_fix)
+
+
+x_data_3 = [0.10, 0.30, 0.50, 0.70, 0.90]
+y_data_2 = [avg_fix_010, avg_fix_030, avg_fix_050, avg_fix_070, avg_fix_090]
+
+fig, ax = plt.subplots()
+ax.plot(x_data_3, y_data_2)
+ax.set_xlabel("Starting Allele Frequency")
+ax.set_ylabel("Avergae Time to Fixation")
+plt.show()
 
