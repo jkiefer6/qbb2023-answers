@@ -80,13 +80,64 @@ for i in range(1000):
 
 fig, ax = plt.subplots()
 ax.hist(time_to_fix)
+#plt.show()
+
+
+#Exercise 3:
+
+#my pop sizes: 50, 100, 150, 200, 250
+
+def my_mean(integer_list):
+    total = []
+    assert type (integer_list[0]) in [int], "make data an integer"
+    for value in range(len(integer_list)):
+        total.append(integer_list[value])
+    final = sum(total)
+    average = final / len(integer_list)
+    return average
+
+
+
+
+time_to_fix = []
+for i in range(1000):
+    generation_data = wright_fisher_equation(0.53, 50)
+    time_to_fix.append(len(generation_data))
+avg_fix_50 = my_mean(time_to_fix)
+
+
+time_to_fix = []
+for i in range(1000):
+    generation_data = wright_fisher_equation(0.53, 100)
+    time_to_fix.append(len(generation_data))
+avg_fix_100 = my_mean(time_to_fix)
+
+time_to_fix = []
+for i in range(1000):
+    generation_data = wright_fisher_equation(0.53, 150)
+    time_to_fix.append(len(generation_data))
+avg_fix_150 = my_mean(time_to_fix)
+
+time_to_fix = []
+for i in range(1000):
+    generation_data = wright_fisher_equation(0.53, 200)
+    time_to_fix.append(len(generation_data))
+avg_fix_200 = my_mean(time_to_fix)
+
+time_to_fix = []
+for i in range(1000):
+    generation_data = wright_fisher_equation(0.53, 250)
+    time_to_fix.append(len(generation_data))
+avg_fix_250 = my_mean(time_to_fix)
+
+
+x_data_2 = [50, 100, 150, 200, 250]
+y_data = [avg_fix_50, avg_fix_100, avg_fix_150, avg_fix_200, avg_fix_250]
+
+fig, ax = plt.subplots()
+ax.plot(x_data_2, y_data)
+ax.set_xlabel("Population Size")
+ax.set_ylabel("Avergae Time to Fixation")
 plt.show()
-
-
-
-
-
-
-
 
 
