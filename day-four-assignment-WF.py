@@ -37,5 +37,17 @@ generation_data = wright_fisher_equation(0.53, 300)
 
 print(len(generation_data))
 
+#create a plot of allele frequency over time throughout your simulation. I.e. the X axis is the generation, the Y axis is the frequency of your allele at that generation.
 
+x_data = []
+index = 0
+for value in range(len(generation_data)):
+    index += 1
+    x_data.append(index) 
+#print(x_data)
 
+fig, ax = plt.subplots()
+ax.plot(x_data, generation_data)
+ax.set_xlabel("Generations")
+ax.set_ylabel("Allele Frequency")
+plt.show()
