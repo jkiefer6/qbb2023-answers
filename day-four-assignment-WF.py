@@ -19,7 +19,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt
 
-
+"""
 def wright_fisher_equation (starting_allele_freq, starting_pop_size):
     allele_frequency_for_gen = [starting_allele_freq]
     
@@ -95,7 +95,6 @@ def my_mean(integer_list):
     final = sum(total)
     average = final / len(integer_list)
     return average
-
 
 
 
@@ -183,7 +182,7 @@ ax.set_xlabel("Starting Allele Frequency")
 ax.set_ylabel("Avergae Time to Fixation")
 plt.show()
 
-"""
+
 question 1 : Understanding the plot of pop size vs allele frequency
     In this plot, as population size increases along the x axis, average time to fixation
     also increases. This makes sense because as number of individuals
@@ -203,7 +202,7 @@ question 2 : Changing the assumptions of W-F model (constant pop size)
     and populations can expereince  catalysmic events (fire, flood, etc.) that may result in a dramatic reduction of 
     individuals. If a population experienced this, the time for fixation for a specific allele 
     would be much accleerated when compared to the population before such an event. 
-question 3 : Changing the assumptions of W-F model (random mating)
+Question 3 : Changing the assumptions of W-F model (random mating)
     The Wright-Fisher model assumes that mating between individuals is random. However in nature most of the time,
     mating is not random. But rather mates are selected according to traits that make them more attarctive to other
     organisms or traits that allow them to live longer than their peers. For example, if an allele increased the 
@@ -213,4 +212,59 @@ question 3 : Changing the assumptions of W-F model (random mating)
     the time to fixation would decrease as mates with the allele would preferentially be able to pass on their 
     alleles increasing the frequency of the allele in the next populations. The inverse would also be true. 
 
+"""
+#Adv Exercise 1
+
+def wright_fisher_equation_selection (starting_allele_freq, starting_pop_size, selection_coefficient):
+    allele_frequency_for_gen = [starting_allele_freq]
+    allele_frequency = starting_allele_freq
+
+    while allele_frequency < 1 and allele_frequency > 0: 
+        val_i = allele_frequency * (2*starting_pop_size)
+        #print(val_i)
+        top = val_i * (1 + selection_coefficient)
+        bottom = 2*starting_pop_size - val_i + (val_i * (1 + selection_coefficient))
+        prob = top / bottom
+        successes = np.random.binomial(2*starting_pop_size, prob)
+        allele_frequency_new = successes / (2*starting_pop_size)
+        allele_frequency_for_gen.append(allele_frequency_new)
+        allele_frequency = allele_frequency_new
+    return allele_frequency_for_gen
+
+
+#generation_data = wright_fisher_equation_selection(0.53, 300, 0.01)
+#print(len(generation_data))
+"""
+x_data_A = []
+index = 0
+for value in range(len(generation_data)):
+    index += 1
+    x_data_A.append(index) 
+#print(x_data)
+
+fig, ax = plt.subplots()
+ax.plot(x_data_A, generation_data)
+ax.set_xlabel("Generations")
+ax.set_ylabel("Allele Frequency")
+plt.show()
+"""
+#With diff s = 0.02
+generation_data = wright_fisher_equation_selection(0.53, 300, 0.02)
+x_data_B = []
+index = 0
+for value in range(len(generation_data)):
+    index += 1
+    x_data_B.append(index) 
+#print(x_data)
+
+fig, ax = plt.subplots()
+ax.plot(x_data_B, generation_data)
+ax.set_xlabel("Generations")
+ax.set_ylabel("Allele Frequency")
+plt.show()
+
+
+
+#Q: Introducing a selection coefficient makes the allele much more likely to reach fixation where all 
+#individuals have the allele in a shorter time frame. 
 
