@@ -45,7 +45,7 @@ for value in range(len(generation_data)):
     index += 1
     x_data.append(index) 
 #print(x_data)
-
+"""
 fig, ax = plt.subplots()
 ax.plot(x_data, generation_data)
 ax.set_xlabel("Generations")
@@ -70,7 +70,9 @@ for i in range(40):
         x_data_ex2.append(index) 
     ax.plot(x_data_ex2, generation_data)
 
-#plt.show()
+plt.show()
+fig.savefig( "Multiple-AlleleFreq-Trajectories" )
+plt.close(fig)
 
 #Pt. 2 - run model 1000 times and create a histogram (dot hist) of time to fixation
 
@@ -81,9 +83,11 @@ for i in range(1000):
 
 fig, ax = plt.subplots()
 ax.hist(time_to_fix)
-#plt.show()
+plt.show()
+fig.savefig( "Histogram-Fixation" )
+plt.close(fig)
 
-
+"""
 #Exercise 3:
 
 #my pop sizes: 50, 100, 150, 200, 250
