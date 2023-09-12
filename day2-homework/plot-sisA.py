@@ -104,7 +104,7 @@ expression = data[row, cols]
 x = samples[cols]
 y = expression
 
-"""
+
 #Adding male data
 for i in range(len(transcripts)):
     if transcripts[i] == 'FBtr0073461':
@@ -123,6 +123,7 @@ expression2 = data[row, cols2]
 x2 = samples[cols2]
 y2 = expression2
 
+"""
 #Creating 2* male Data (hint: 2 * np.array( y )))
 for i in range(len(transcripts)):
     if transcripts[i] == 'FBtr0073461': #keep this the same
@@ -148,14 +149,14 @@ corrected = ["10", "11", "12", "13", "14A", "14B", "14C", "14D"]
 #Plot data
 fig, (ax) = plt.subplots()
 ax.set_title( "All Combined Data Only FBtr0073461" )
-ax.plot(x, y, color = 'red', label = "Female")
-#ax.plot( corrected, y2, color = 'blue', label = "Male")
+ax.plot(corrected, y, color = 'red', label = "Female")
+ax.plot(corrected, y2, color = 'blue', label = "Male")
 #ax.plot(corrected, y3, color = 'green', label = "2*Male")
 
 ax.legend()
 ax.set_xlabel("Developmental Stage")
 ax.set_ylabel("mRNA Abundance (RPKM)")
-ax.set_title("Female Only sisA")
+ax.set_title("M/F only sisA")
 
 for ax in fig.axes:
     plt.sca(ax)
@@ -163,7 +164,7 @@ for ax in fig.axes:
 
 plt.tight_layout()
 plt.show()
-fig.savefig( "Redo-Female-Data-Only-FBtr0073461.png" )
+fig.savefig( "Redo-Combined-Data-Only-FBtr0073461.png" )
 plt.close(fig)
 
 
