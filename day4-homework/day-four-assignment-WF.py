@@ -87,7 +87,7 @@ plt.show()
 fig.savefig( "Histogram-Fixation" )
 plt.close(fig)
 
-"""
+
 #Exercise 3:
 
 #my pop sizes: 50, 100, 150, 200, 250
@@ -191,7 +191,7 @@ plt.show()
 fig.savefig( "Avg-Fix-Time-Allele" )
 plt.close(fig)
 
-"""
+
 
 question 1 : Understanding the plot of pop size vs allele frequency
     In this plot, as population size increases along the x axis, average time to fixation
@@ -221,7 +221,7 @@ Question 3 : Changing the assumptions of W-F model (random mating)
     time to fixation for a specific allele. If mates with the allele were favored over those without, 
     the time to fixation would decrease as mates with the allele would preferentially be able to pass on their 
     alleles increasing the frequency of the allele in the next populations. The inverse would also be true. 
-
+"""
 #Adv Exercise 1
 
 def wright_fisher_equation_selection (starting_allele_freq, starting_pop_size, selection_coefficient):
@@ -256,6 +256,8 @@ ax.plot(x_data_A, generation_data)
 ax.set_xlabel("Generations")
 ax.set_ylabel("Allele Frequency")
 plt.show()
+fig.savefig( "Selection1-Generations_vs_AlleleFrequency" )
+plt.close(fig)
 
 #With diff s = 0.02
 generation_data = wright_fisher_equation_selection(0.53, 300, 0.02)
@@ -271,12 +273,13 @@ ax.plot(x_data_B, generation_data)
 ax.set_xlabel("Generations")
 ax.set_ylabel("Allele Frequency")
 plt.show()
-
+fig.savefig( "Selection2-Generations_vs_AlleleFrequency" )
+plt.close(fig)
 
 
 #Q: Introducing a selection coefficient makes the allele much more likely to reach fixation where all 
 #individuals have the allele in a shorter time frame. 
-
+"""
 #Adv Ex 2:
 #pop size list
 def my_mean(integer_list):
