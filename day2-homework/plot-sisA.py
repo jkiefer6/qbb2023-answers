@@ -6,18 +6,18 @@ import matplotlib.pyplot as plt
 
 #Exercise 3 code for Unix:
 
-git log
+#git log
 #the six digit id of my original file: 
-git checkout 022644 code.py
+#git checkout 022644 code.py
 
 #then to commit changes:
-git add plot-sisA.py
-git commit -m "Restoring original file"
-git push
-check on github.com
+#git add plot-sisA.py
+#git commit -m "Restoring original file"
+#git push
+#check on github.com
 
 
-#Exercise 2:
+#Exercise 2: 
 """
 f = open("all_annotated.csv", "r")
 
@@ -29,6 +29,7 @@ transcripts = []
 firstline = []
 secondline = []
 thirdline = []
+datatest = []
 
 #the short way:
 for i in range(len(lines)):
@@ -39,7 +40,7 @@ for i in range(len(lines)):
         sample = line_list[2:]
     if i != 0:
         transcripts.append(line_list[0])
-        data.append(line_list[2:])
+        datatest.append(line_list[2:])
 
 
 #the long way that i worked out first:
@@ -64,7 +65,7 @@ for i in range(len(lines)):
     if i != 0:  #ignore first row
         data.append(line_list[2:])  #append if you want to build a dynamic list vs equal if you want to save an already amde list
 
-
+"""
 
 
 
@@ -80,32 +81,30 @@ print( "samples: ", samples[0:5] )
 
 data = np.loadtxt( "all_annotated.csv", delimiter=",", dtype=np.float32, skiprows=1, usecols=range(2, len(samples) + 2) )
 print( "data: ", data[0:5, 0:5] )
-"""
 
-"""
 
 # Find row with transcript of interest
-#for i in range(len(transcripts)):
-    #if transcripts[i] == 'FBtr0073461':
-        #row = i
+for i in range(len(transcripts)):
+    if transcripts[i] == 'FBtr0073461':
+        row = i
 
 # Find columns with samples of interest
-#cols = []
-#for i in range(len(samples)):
-    #if "female" in samples[i]:
-        #cols.append(i)
+cols = []
+for i in range(len(samples)):
+    if "female" in samples[i]:
+        cols.append(i)
 
 # Subset data of interest
-#expression = data[row, cols]
+expression = data[row, cols]
 
-"""
 
-"""
+
+
 # Prepare data
 x = samples[cols]
 y = expression
 
-
+"""
 #Adding male data
 for i in range(len(transcripts)):
     if transcripts[i] == 'FBtr0073461':
@@ -142,22 +141,29 @@ expression2 = data[row, cols2]
 x2 = samples[cols2]
 y3 = 2 * np.array(expression2)
 
+"""
+
 corrected = ["10", "11", "12", "13", "14A", "14B", "14C", "14D"]
 
-# Plot data
+#Plot data
 fig, (ax) = plt.subplots()
 ax.set_title( "All Combined Data Only FBtr0073461" )
-ax.plot( corrected, y, color = 'red', label = "Female")
-ax.plot( corrected, y2, color = 'blue', label = "Male")
-ax.plot(corrected, y3, color = 'green', label = "2*Male")
+ax.plot(x, y, color = 'red', label = "Female")
+#ax.plot( corrected, y2, color = 'blue', label = "Male")
+#ax.plot(corrected, y3, color = 'green', label = "2*Male")
 
 ax.legend()
 ax.set_xlabel("Developmental Stage")
 ax.set_ylabel("mRNA Abundance (RPKM)")
-ax.set_title("sisA")
+ax.set_title("Female Only sisA")
 
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation = 45)
+
+plt.tight_layout()
 plt.show()
-#fig.savefig( "Final-Combined-Data-FBtr0073461.png" )
-#plt.close( fig )
-"""
+fig.savefig( "Redo-Female-Data-Only-FBtr0073461.png" )
+plt.close(fig)
+
 
