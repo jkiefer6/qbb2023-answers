@@ -58,7 +58,7 @@ plt.close(fig)
 #Run your model repeatedly (at least 30 iterations) and visualize all your allele frequency trajectories together on one plot. Remember that you can lines to a matplotlib figure using a for loop.
 
 
-"""
+
 
 fig, ax = plt.subplots()
 for i in range(40):
@@ -142,7 +142,9 @@ fig, ax = plt.subplots()
 ax.plot(x_data_2, y_data)
 ax.set_xlabel("Population Size")
 ax.set_ylabel("Avergae Time to Fixation")
-#plt.show()
+plt.show()
+fig.savefig( "Avg-Fix-Time-Pop" )
+plt.close(fig)
 
 #Pt. 2
 
@@ -184,9 +186,12 @@ y_data_2 = [avg_fix_010, avg_fix_030, avg_fix_050, avg_fix_070, avg_fix_090]
 fig, ax = plt.subplots()
 ax.plot(x_data_3, y_data_2)
 ax.set_xlabel("Starting Allele Frequency")
-ax.set_ylabel("Avergae Time to Fixation")
+ax.set_ylabel("Average Time to Fixation")
 plt.show()
+fig.savefig( "Avg-Fix-Time-Allele" )
+plt.close(fig)
 
+"""
 
 question 1 : Understanding the plot of pop size vs allele frequency
     In this plot, as population size increases along the x axis, average time to fixation
