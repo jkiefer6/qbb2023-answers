@@ -36,12 +36,12 @@ for i in deNovoCount.keys():
     deNovoCount[i] = [the_sum_mom, the_sum_dad]
 
 
-print(deNovoCount)
+#print(deNovoCount)
 
 #this worked I think!!
 
+deNovoCountDF = pd.DataFrame.from_dict(deNovoCount, orient = 'index', columns = ['maternal_dnm', 'paternal_dnm'])
 
-
-
-
+age = pd.read_csv('aau1043_parental_age.csv')
+print(age)
 
