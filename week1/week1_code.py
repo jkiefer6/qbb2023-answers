@@ -42,6 +42,16 @@ for i in deNovoCount.keys():
 
 deNovoCountDF = pd.DataFrame.from_dict(deNovoCount, orient = 'index', columns = ['maternal_dnm', 'paternal_dnm'])
 
+#print(deNovoCountDF)
+new_deNovoCountDF = deNovoCountDF.reset_index() #need to reset row numbers
+new2 = new_deNovoCountDF.drop('index', axis = 'columns') #created an index column by accident, so removing that
+#print(new2)
 age = pd.read_csv('aau1043_parental_age.csv')
-print(age)
+#print(age)
+
+
+df3 = pd.concat([age, new2], axis = 1, join = 'outer')
+print(df3)
+
+#This works! now its ID, F age, M age, Mdnm, Pdnm
 
