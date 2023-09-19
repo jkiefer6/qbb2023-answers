@@ -72,9 +72,9 @@ ax.set_ylabel("Maternal DeNovo Mutations")
 
 
 plt.tight_layout()
-plt.show()
-fig.savefig( "ex2_a" )
-plt.close(fig)
+#plt.show()
+#fig.savefig( "ex2_a" )
+#plt.close(fig)
 
 fig, (ax) = plt.subplots()
 ax.set_title( "Paternal Mutations and Age" )
@@ -84,14 +84,15 @@ ax.set_ylabel("Paternal DeNovo Mutations")
 
 
 plt.tight_layout()
-plt.show()
-fig.savefig( "ex2_b" )
-plt.close(fig)
+#plt.show()
+#fig.savefig( "ex2_b" )
+#plt.close(fig)
 
 
+model_female = smf.ols(formula = "maternal_dnm ~ Mother_age", data = df3).fit()
+#print(model_female.summary())
 
-
-
+print(model_female.pvalues[1])
 
 
 
