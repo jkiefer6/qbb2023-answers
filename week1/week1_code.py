@@ -96,13 +96,20 @@ model_female = smf.ols(formula = "maternal_dnm ~ Mother_age", data = df3).fit()
 
 
 model_male = smf.ols(formula = "paternal_dnm ~ Father_age", data = df3).fit()
-print(model_male.summary())
+#print(model_male.summary())
 
-print(model_male.pvalues[0])
-print(model_male.pvalues[1])
-
-
+#print(model_male.pvalues[0])
+#print(model_male.pvalues[1])
 
 
+fig, ax = plt.subplots()
+ax.hist(df3["maternal_dnm"][df3["Mother_age"]], label = "maternal", bins = 30, alpha = 0.5)
+ax.hist(df3["paternal_dnm"][df3["Father_age"]], label = "paternal", bins = 30, alpha = 0.5)
+ax.legend()
+ax.set_xlabel("Age")
+ax.set_ylabel("DeNovo Mutations")
+plt.show()
+fig.savefig( "ex2_c" )
+plt.close(fig)
 
 
