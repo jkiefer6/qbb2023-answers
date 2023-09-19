@@ -51,7 +51,54 @@ age = pd.read_csv('aau1043_parental_age.csv')
 
 
 df3 = pd.concat([age, new2], axis = 1, join = 'outer')
-print(df3)
+#print(df3)
 
 #This works! now its ID, F age, M age, Mdnm, Pdnm
+
+#Exercise 2:
+
+import statsmodels.formula.api as smf
+
+# the count of maternal de novo mutations vs. maternal age (upload as ex2_a.png in your submission directory)
+#the count of paternal de novo mutations vs. paternal age (upload as ex2_b.png in your submission directory)
+
+import matplotlib.pyplot as plt
+
+fig, (ax) = plt.subplots()
+ax.set_title( "Maternal Mutations and Age" )
+ax.scatter(df3["Mother_age"], df3["maternal_dnm"])
+ax.set_xlabel("Maternal Age")
+ax.set_ylabel("Maternal DeNovo Mutations")
+
+
+plt.tight_layout()
+plt.show()
+fig.savefig( "ex2_a" )
+plt.close(fig)
+
+fig, (ax) = plt.subplots()
+ax.set_title( "Paternal Mutations and Age" )
+ax.scatter(df3["Father_age"], df3["paternal_dnm"])
+ax.set_xlabel("Paternal Age")
+ax.set_ylabel("Paternal DeNovo Mutations")
+
+
+plt.tight_layout()
+plt.show()
+fig.savefig( "ex2_b" )
+plt.close(fig)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
