@@ -92,11 +92,14 @@ plt.tight_layout()
 model_female = smf.ols(formula = "maternal_dnm ~ Mother_age", data = df3).fit()
 #print(model_female.summary())
 
-print(model_female.pvalues[1])
+#print(model_female.pvalues[1])
 
 
+model_male = smf.ols(formula = "paternal_dnm ~ Father_age", data = df3).fit()
+print(model_male.summary())
 
-
+print(model_male.pvalues[0])
+print(model_male.pvalues[1])
 
 
 
