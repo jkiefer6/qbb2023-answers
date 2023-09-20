@@ -102,14 +102,68 @@ model_male = smf.ols(formula = "paternal_dnm ~ Father_age", data = df3).fit()
 #print(model_male.pvalues[1])
 
 
+#fig, ax = plt.subplots()
+#ax.hist(df3["maternal_dnm"][df3["Mother_age"]], label = "maternal", bins = 30, alpha = 0.5)
+#ax.hist(df3["paternal_dnm"][df3["Father_age"]], label = "paternal", bins = 30, alpha = 0.5)
+#ax.legend()
+#ax.set_xlabel("Age")
+#ax.set_ylabel("DeNovo Mutations")
+#plt.show()
+#fig.savefig( "ex2_c" )
+#plt.close(fig)
+
+#2.6
+#Must be paried because each proband has multiple dnms and need to take that into account
+#first test if data is parametric:
+
+#checking for gaussian distribution 
+#first visually:
+"""
 fig, ax = plt.subplots()
-ax.hist(df3["maternal_dnm"][df3["Mother_age"]], label = "maternal", bins = 30, alpha = 0.5)
-ax.hist(df3["paternal_dnm"][df3["Father_age"]], label = "paternal", bins = 30, alpha = 0.5)
-ax.legend()
-ax.set_xlabel("Age")
-ax.set_ylabel("DeNovo Mutations")
+ax.hist(df3["maternal_dnm"])
+ax.set_title("Maternal DNMs")
 plt.show()
-fig.savefig( "ex2_c" )
-plt.close(fig)
+fig.savefig("ex2_a")
+#right tail on hist
+
+fig, ax = plt.subplots()
+ax.hist(df3["paternal_dnm"])
+ax.set_title("Paternal DNMs")
+plt.show()
+fig.savefig("ex2_b")
+#also slight right tail, but more gaussian in distribution
+"""
+m_dnm = df3["maternal_dnm"]
+p_dnm = df3["paternal_dnm"]
+
+from scipy import stats
+from scipy.stats import shapiro
+import scipy.stats as stats
+
+stat, p = shapiro(m_dnm)
+#print(stat, p)
+# p = 2.34 * 10^-10
+
+statp, p_p = shapiro(p_dnm)
+#print(statp, p_p)
+# p = 1.24*10^-6
+
+#Since the p value is so low, we reject the null hypothesis which was that the data was normally distributed
+#Have to use Wilcoxon signed rank test
+
+print(stats.wilcoxon(m_dnm, p_dnm))
+
+#for the null hypothesis, evenly distributed around zero
+# p = 1.20 * 10^-66
+#reject that null that the two distributions are the same
+#there is a singificant difference between maternally inherited dnms and paternal
+
+print(stats.wilcoxon(m_dnm, p_dnm, alternative = 'less'))
+# p = 5.98 * 10^-67
+# specifically testing here that 
+#the distribution underlying the difference between medians
+#is stochastically less than a distribution symmetric about zero.
+#in other words that the number of paternal dnms is significantly more than maternal for a given proband
+
 
 
