@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+#Exercise 2: De Bruijn graph 
+
 reads = ['ATTCA', 'ATTGA', 'CATTG', 'CTTAT', 'GATTG', 'TATTT', 'TCATT', 'TCTTA', 'TGATT', 'TTATT', 'TTCAT', 'TTCTT', 'TTGAT']
 
 non_graph = []
