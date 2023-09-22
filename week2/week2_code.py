@@ -34,7 +34,7 @@ def simulate_coverage(coverage, genome_len, read_len, figname):
     fig.tight_layout()
     fig.savefig(figname)
 
-simulate_coverage(3, 1_000_000, 100, 'ex1-3x_cov.png')
+simulate_coverage(10, 1_000_000, 100, 'ex1-10x_cov.png')
 
 
 
