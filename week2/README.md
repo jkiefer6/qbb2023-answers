@@ -5,3 +5,4 @@
 1.4.2 The Poisson distribution fits the curve well, better than the 3x coverage. Similarly, the normal distrbution fits the simulation slightly worse than the Poisson becasue the normal distribution fits less well for smaller means (ie smaller coverage). But the normal distribution fits the simulation much better than for 3x coverage.
 1.5.1 There are 9 bases with zero coverage or 0.0009% of the genome.
 1.5.2 Both the normal distribution and the Poisson distribution fit the simulation very well. This is becasue the increased coverage leads to increased means and lamda which contributes to the distributions fitting very well to the simualtion. 
+2.4 dot -Tpng edges.dot -o ex2_digraph.png
