@@ -1,1 +1,3 @@
-1. 1 Mbp * 3x coverage = 3Mbp total; 3 million bp/100 bp = 30,000 reads
+1.1 1 Mbp * 3x coverage = 3Mbp total; 3 million bp/100 bp = 30,000 reads
+1.3.1 50,641 bases have 0 coverage or 5.0641% of the genome has zer coverage.
+1.3.2 This fits the poisson expectationsw hich suggest that the area with zero coverage should be about 50,000 and the Poisson distribution fit the curve well. The normal distrbution fits the simulationa bit worse than the Poisson becasue the normal distribution fits less well for smaller means (ie smaller coverage). If we increase the coverage than we should see that the fit of normal distribution would improve. 
