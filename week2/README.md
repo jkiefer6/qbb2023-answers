@@ -6,7 +6,7 @@
 1.5.1 There are 9 bases with zero coverage or 0.0009% of the genome.
 1.5.2 Both the normal distribution and the Poisson distribution fit the simulation very well. This is becasue the increased coverage leads to increased means and lamda which contributes to the distributions fitting very well to the simualtion. 
 2.4 dot -Tpng edges.dot -o ex2_digraph.png
-2.5 TTC-TCA-CAT-ATT-TTG-TGA-GAT-ATT-TTC-TCT-CTT-TTA-TAT-ATT
+2.5 ATT-TTG-TGA-GAT-ATT-TTC-TCT-CTT-TTA-TAT-ATT-TTC-TCA-CAT-ATT-TTT linkage of kmers which gives the sequence: ATTGATTCTTATTCATTT
 2.6 We would need to know what size the of the sequence read is. We would also need to know the frequency of each kmer occurance which could help you put together the sequence. 
 3.1.1 Prompt: Write an essay about why a cell and molecular biologist like me, who is mostly interested in proteins and cell signalling, would be interested in genomics. Include references.
 3.1.2 Essay: 

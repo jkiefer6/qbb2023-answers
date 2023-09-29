@@ -9,7 +9,7 @@ non_graph = []
 k = 3
 
 for read in reads:
-  for i in range(len(read) - k - 1):
+  for i in range(len(read) - k):
      kmer1 = read[i: i+k]
      kmer2 = read[i+1: i+1+k]
      non_graph.append(f"{kmer1} -> {kmer2}")
