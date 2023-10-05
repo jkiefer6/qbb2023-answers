@@ -5,7 +5,7 @@ import sys
 from fasta import readFASTA
 import pandas as pd 
 """
-fasta_file = sys.argv[1]
+fasta_file = sys.argv[1] etc. 
 #could do it this way but i actually hate typing in the command line
 """
 def my_file_opener(fasta_file, scoring_matrix_file, gap_penalty):
@@ -45,9 +45,58 @@ for i in range(1, F_matrix.shape[0]):
             traceback_matrix[i, j] = "horizontal"
          else: 
             traceback_matrix[i, j] = "vertical"
-         
-print(traceback_matrix)
+
+
+#need to select optimal alignment now using a while loop
+
+
+i = int(traceback_matrix.shape[0]-1)
+j = int(traceback_matrix.shape[1]-1) #telling while loop to start in bottom corner
+
+sequence_1 = []
+sequence_2 = []
+
+
+while i > 0 or j > 0: 
+    if traceback_matrix[i, j] == "d":
+        sequence_1.append(sequence1[i-1]) #telling it which letter to pull from the sequence
+        sequence_2.append(sequence2[j-1])
+        i = i - 1
+        j = j - 1
+    elif traceback_matrix[i, j] == "v":
+        sequence_1.append(sequence1[i-1])
+        sequence_2.append('-')
+        i = i - 1
+    elif traceback_matrix[i, j] == "h":
+        sequence_1.append('-')
+        sequence_2.append(sequence2[j-1]) 
+        j = j - 1
+    else: #my top position is called star
+        print("weird things happening")
+        i = i - 1
+        j = j - 1
+
+
+score = F_matrix[F_matrix.shape[0]-1, F_matrix.shape[1]-1]
+
+seq1_GAP = sequence_1.count('-')
+seq2_GAP = sequence_2.count('-')
+
+print(score, seq1_GAP, seq2_GAP)
+
+
+#Now I have to flip the sequences since they were added in the backwards order
+
+forward_seq_1 = list(reversed(sequence_1))
+forward_seq_2 = list(reversed(sequence_2))
 
 
 
+f = open("protein_sequence_alignment.txt", "w")
+f.write("Sequence 1:")
+for letter in forward_seq_1:
+    f.write(letter)
+f.write("Sequence 2:")
+for values in forward_seq_2:
+    f.write(values)
 
