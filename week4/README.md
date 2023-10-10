@@ -1,0 +1,3 @@
+192 peaks in combined; 164 peaks in sample 1, 182 peaks in sample 2 so 85.4% of peaks were retained from sample 1 while 94.8% of peaks were retained from sample 2
+
+The peaks do seem very reproducible because they look very similar between the two sample files. The p-value range of the peak should be indicative of reproducibility since it represents the probability of the peak ocuring randomly outside of the poisson distribution. The p-value is not completely consistent because some of the smaller peaks very between samples indicating that larger p-values also have an icreased probability of occuring randomly and with such large data sets this probability of random chance does occur, though rarely.  
