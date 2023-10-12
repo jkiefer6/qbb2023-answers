@@ -8,6 +8,7 @@ import pandas as pd
 fasta_file = sys.argv[1] etc. 
 #could do it this way but i actually hate typing in the command line
 """
+"""
 def my_file_opener(fasta_file, scoring_matrix_file, gap_penalty):
     input_sequences = readFASTA(open(fasta_file))
     seq1_id, sequence1 = input_sequences[0]
@@ -16,8 +17,18 @@ def my_file_opener(fasta_file, scoring_matrix_file, gap_penalty):
     return scoring_matrix, sequence1, sequence2, seq1_id, seq2_id, gap_penalty 
 
 
-scoring_matrix, sequence1, sequence2, seq1_id, seq2_id, gap_penalty = my_file_opener("CTCF_38_M27_DNA.fna", "HOXD70.txt", -300)
+scoring_matrix, sequence1, sequence2, seq1_id, seq2_id, gap_penalty = my_file_opener("CTCF_38_M27_AA.faa", "BLOSUM62.txt", -10)
+"""
+#Opening with sys.argv
+fasta_file = sys.argv[1]
+scoring_matrix_file = sys.argv[2]
+gap_penalty_string = sys.argv[3]
 
+input_sequences = readFASTA(open(fasta_file))
+seq1_id, sequence1 = input_sequences[0]
+seq2_id, sequence2 = input_sequences[1]
+scoring_matrix = pd.read_csv(scoring_matrix_file, delim_whitespace=True)
+gap_penalty = float(gap_penalty_string)
 
 F_matrix = np.zeros((len(sequence1)+1, len(sequence2)+1))
 traceback_matrix = np.zeros((len(sequence1)+1, len(sequence2)+1), str)
@@ -101,6 +112,7 @@ f.write("Sequence 2:")
 for values in forward_seq_2:
     f.write(values)
 
+"""
 #Turning into a function:
 def my_nw (sequence1, sequence2, scoring_matrix, gap_penalty, filename):
     F_matrix = np.zeros((len(sequence1)+1, len(sequence2)+1))
@@ -176,6 +188,6 @@ def my_nw (sequence1, sequence2, scoring_matrix, gap_penalty, filename):
         f.write(values)
     return score, seq1_GAP, seq2_GAP
 
-score, seq1_GAP, seq2_GAP = my_nw(sequence1, sequence2, scoring_matrix, -300, "dna_sequence_alignment.txt")
+score, seq1_GAP, seq2_GAP = my_nw(sequence1, sequence2, scoring_matrix, -10, "protein_sequence_alignment.txt")
 print(score, seq1_GAP, seq2_GAP)
-
+"""
