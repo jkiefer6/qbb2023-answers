@@ -104,10 +104,11 @@ forward_seq_2 = list(reversed(sequence_2))
 
 
 
-f = open("protein_sequence_alignment.txt", "w")
+f = open("dna_sequence_alignment.txt", "w")
 f.write("Sequence 1:")
 for letter in forward_seq_1:
     f.write(letter)
+f.write("\n")
 f.write("Sequence 2:")
 for values in forward_seq_2:
     f.write(values)
