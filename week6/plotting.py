@@ -40,8 +40,10 @@ plt.close(fig)
 cb_gwas = pd.read_csv('cb_gwas.assoc.linear', delim_whitespace=True)
 gs_gwas = pd.read_csv('gs_gwas.assoc.linear', delim_whitespace=True)
 
+
+
 cb_p = cb_gwas["P"]
-gs_p = cb_gwas["P"]
+gs_p = gs_gwas["P"]
 length = len(cb_p)
 cb_10p = -(np.log10(cb_p))
 gs_10p = -(np.log10(gs_p))
@@ -76,17 +78,6 @@ start = 0
 chromosome_lengths = (createList(start, length))
 
 
-
-
-"""
-fig,(ax) = plt.subplots() 
-ax.set_title( "CB1980" )
-ax.scatter(chromosome_lengths, cb_10p)
-ax.set_xlabel("Chromosome")
-ax.set_ylabel("-Log10 P-value")
-plt.show()
-"""
-
 fig, (ax) = plt.subplots(2) 
 ax[0].set_title( "CB1980" )
 ax[0].scatter(chromosome_lengths, cb_10p, c = color_cb)
@@ -105,20 +96,113 @@ plt.show()
 fig.savefig( "manhattan.png" )
 plt.close(fig)
 
+highest_snp = (min(cb_p))
+
+index = 0
+for value in cb_p:
+    if value == 8.199e-12:
+        print(index)
+    index += 1
+#2028444
+#print(cb_gwas.iloc[[2028444]])
+#snp of interest is rs10876043
+
+
+genotypes = pd.read_csv('genotypes.vcf', delimiter = '\t', skiprows = 27)
+#print(genotypes)
+
+#how do we specify a specific snp to sort for mutations in?
+#in a for loop and then do we need to know the header for the columns? like what's 1169_1169?
+
+
+SNPs = genotypes["ID"]
+index = 0
+for value in SNPs:
+    if value == 'rs10876043':
+        print(index)
+    index = index + 1
+#index call for genotype data is 184404
+
+snp_interest_row = genotypes.iloc[184404]
+#print(snp_interest_row)
+
+#print(snp_interest_row.head(20)) #skip first 9 rows
+
+mod_snp_row = snp_interest_row.iloc[9:]
+#print(mod_snp_row)
+
+genotypes = []
+for row in mod_snp_row:
+    if row != "./.":
+        genotypes.append(row)
+
+
+big_phenotypes = pd.read_csv("CB1908_IC50.txt", delim_whitespace=True)
+phenotypes = big_phenotypes["CB1908_IC50"]
 
 
 
+wt = []
+het = []
+mut = []
+
+index = 0
+for value in genotypes:
+    if value == "0/0":
+        wt.append(phenotypes.iloc[index])
+    if value == "0/1":
+        het.append(phenotypes.iloc[index])
+    if value == "1/1":
+        mut.append(phenotypes.iloc[index])
+    index = index + 1
 
 
 
+het_mod = []
+mylabels = ["Wildtype", "Heterozygous", "Homozygous Mutant"]
+
+for i in range(len(het)):
+    if str(het[i]) == 'nan':
+        continue
+    else:
+        het_mod.append(het[i])
+
+data = [wt, het_mod, mut]
+
+fig,(ax) = plt.subplots() 
+ax.set_title( "Effect Size" )
+ax.boxplot(data, labels = mylabels)
+ax.set_xlabel("Genotype")
+ax.set_ylabel("IC_50")
+plt.show()
+fig.savefig( "effect_size.png" )
+plt.close(fig)
 
 
+#finding the top loci:
+highest_snp = (min(cb_p))
+
+index = 0
+for value in cb_p:
+    if value == 8.199e-12:
+        print(index)
+    index += 1
+#2028444
+#print(cb_gwas.iloc[[2028444]])
+#snp of interest is rs10876043
+#bp chrm 12 @ 49,190,411 (DIP2B gene)
 
 
+highest_snp_gs = (min(gs_p))
+#print(highest_snp_gs)
 
 
-
-
-
-
+index = 0
+for value in gs_p:
+    if value == 1.43e-07:
+        print(index)
+    index += 1
+#2650065
+#print(gs_gwas.iloc[[2650065]])
+#bp chrm 19 @ 20,372,113 (ZNF826)
 
