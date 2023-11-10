@@ -40,13 +40,30 @@ plt.close(fig)
 cb_gwas = pd.read_csv('cb_gwas.assoc.linear', delim_whitespace=True)
 gs_gwas = pd.read_csv('gs_gwas.assoc.linear', delim_whitespace=True)
 
-
-
 cb_p = cb_gwas["P"]
 gs_p = gs_gwas["P"]
-length = len(cb_p)
-cb_10p = -(np.log10(cb_p))
-gs_10p = -(np.log10(gs_p))
+
+
+cb_p_true = []
+cb_test = cb_gwas["TEST"]
+for line in range(len(cb_test)):
+    site = cb_test[line] 
+    if site == "ADD":
+        cb_p_true.append(float(cb_p[line]))
+
+
+gs_p_true = []
+gs_test = gs_gwas["TEST"]
+for line in range(len(gs_test)):
+    site = gs_test[line] 
+    if site == "ADD":
+        gs_p_true.append(float(gs_p[line]))
+
+
+
+length = len(cb_p_true)
+cb_10p = -(np.log10(cb_p_true))
+gs_10p = -(np.log10(gs_p_true))
 
 color_cb = []
 color_gs = []
@@ -96,14 +113,16 @@ plt.show()
 fig.savefig( "manhattan.png" )
 plt.close(fig)
 
-highest_snp = (min(cb_p))
+highest_snp = (min(cb_p_true))
+#print(highest_snp)
+
 
 index = 0
-for value in cb_p:
+for value in cb_p_true:
     if value == 8.199e-12:
         print(index)
     index += 1
-#2028444
+#184404
 #print(cb_gwas.iloc[[2028444]])
 #snp of interest is rs10876043
 
@@ -131,14 +150,30 @@ snp_interest_row = genotypes.iloc[184404]
 mod_snp_row = snp_interest_row.iloc[9:]
 #print(mod_snp_row)
 
+
+phenotype_indexes = []
 genotypes = []
+index = 0
 for row in mod_snp_row:
     if row != "./.":
         genotypes.append(row)
+    else:
+        phenotype_indexes.append(index)
+    index += 1
 
+phenotype_indexes_useful = []
+for value in range(len(phenotype_indexes)):
+    number = phenotype_indexes[value]
+    mod_number = number + 1000
+    phenotype_indexes_useful.append(mod_number)
+#print(phenotype_indexes_useful)
 
 big_phenotypes = pd.read_csv("CB1908_IC50.txt", delim_whitespace=True)
-phenotypes = big_phenotypes["CB1908_IC50"]
+
+
+modified_pheno_data = big_phenotypes[~big_phenotypes["FID"].isin(phenotype_indexes_useful)]
+phenotypes = modified_pheno_data["CB1908_IC50"]
+
 
 
 
@@ -180,25 +215,25 @@ plt.close(fig)
 
 
 #finding the top loci:
-highest_snp = (min(cb_p))
+highest_snp = (min(cb_p_true))
 
 index = 0
-for value in cb_p:
+for value in cb_p_true:
     if value == 8.199e-12:
         print(index)
     index += 1
-#2028444
-#print(cb_gwas.iloc[[2028444]])
+#184404
+#print(cb_gwas.iloc[[184404]])
 #snp of interest is rs10876043
 #bp chrm 12 @ 49,190,411 (DIP2B gene)
 
 
-highest_snp_gs = (min(gs_p))
-#print(highest_snp_gs)
+highest_snp_gs = (min(gs_p_true))
+print(highest_snp_gs)
 
 
 index = 0
-for value in gs_p:
+for value in gs_p_true:
     if value == 1.43e-07:
         print(index)
     index += 1
