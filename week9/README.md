@@ -1,1 +1,1 @@
-Jaccard Index: 7.10 %
+Jaccard Index: 50.36 %

@@ -13,15 +13,17 @@ from pydeseq2.ds import DeseqStats
 counts_df = pd.read_csv("gtex_whole_blood_counts_formatted.txt", index_col = 0)
 metadata = pd.read_csv("gtex_metadata.txt", index_col = 0)
 
-
+"""
 counts_df_normed = preprocessing.deseq2_norm(counts_df)[0]
 counts_df_normed = np.log2(counts_df_normed + 1)
 full_design_df = pd.concat([counts_df_normed, metadata], axis=1)
 
 model = smf.ols(formula = 'Q("DDX11L1") ~ SEX', data=full_design_df)
 results = model.fit()
+
 slope = results.params[1]
 pval = results.pvalues[1]
+
 
 full_design_dfT = full_design_df.transpose()
 n = 3
@@ -34,13 +36,24 @@ for line in range(len(full_design_dfT)):
     model = smf.ols(formula = f'Q("{gene}") ~ SEX', data=full_design_df) 
     results = model.fit()
     slope = results.params[1]
-    pval = results.params[1]
+    pval = results.pvalues[1]
     all_results.loc[line] = [gene, slope, pval]
 all_results.to_csv('output_results.csv', index=False)
 
+
 results = pd.read_csv("output_results.csv")
-pvals = results["Pval"]
-genes = results["Gene"]
+pvals_unclean = results["Pval"]
+genes_unclean = results["Gene"]
+
+pvals = []
+genes = []
+for line in range(len(pvals_unclean)):
+    pvalue = pvals_unclean.iloc[line]
+    gene = genes_unclean.iloc[line]
+    if pd.notna(pvalue):
+        pvals.append(pvalue)
+        genes.append(gene)
+
 fdr_pvals = multitest.fdrcorrection(pvals, alpha=0.10)
 fdr_pvals_actual = fdr_pvals[1]
 final_results = pd.DataFrame({'Gene': genes, "FDR_Pvals": fdr_pvals_actual})
@@ -48,7 +61,10 @@ final_results_sorted = final_results.sort_values(by='FDR_Pvals')
 significant_results = final_results_sorted[final_results_sorted['FDR_Pvals'] < 0.1]
 
 significant_results.to_csv('signifcant_results.txt', sep='\t', index=False)
+significant_results.to_csv('signifcant_results.csv', sep='\t', index=False)
 """
+
+
 dds = DeseqDataSet(
     counts=counts_df,
     metadata=metadata,
@@ -70,7 +86,7 @@ sig_results_mod = pd.DataFrame({"Gene": genes, "Pvals": sig_pvals})
 sig_results_mod.to_csv('deseq2_signifcant_results.txt', sep='\t', index=False)
 
 deseq2_sig_results = pd.read_csv("deseq2_signifcant_results.csv")
-manual_sig_results = pd.read_csv("signifcant_results.csv")
+manual_sig_results = pd.read_csv("signifcant_results.csv", delim_whitespace = True)
 
 man_gen = manual_sig_results["Gene"]
 deseq2_gen = deseq2_sig_results["Gene"]
@@ -82,34 +98,44 @@ shared_genes = len(manual_genes.intersection(deseq2_genes))
 manual_unique_genes = len(manual_genes.difference(deseq2_genes))
 deseq2_unique_genes = len(deseq2_genes.difference(manual_genes))
 jaccard_index = (shared_genes / (manual_unique_genes + deseq2_unique_genes + shared_genes)) * 100
-#print(jaccard_index)
+print(jaccard_index)
 
+
+results_reset = results.reset_index()
+clean_padj = []
+clean_log = []
+for line in range(len(results_reset)):
+    padj = results_reset.at[line, "padj"]
+    logadj = results_reset.at[line, "log2FoldChange"]
+    if pd.notna(padj):
+        clean_padj.append(padj)
+        clean_log.append(logadj)
 
 import matplotlib.pyplot as plt
 
-log2 = results["log2FoldChange"]
-graph_pvals = -(np.log10(results["padj"]))
+
+graph_pvals = -(np.log10(clean_padj))
 color = []
 for line in range(len(graph_pvals)):
     value = graph_pvals[line]
-    item = log2[line]
-    if value > 1 and (item < -2 or item > 2):
+    item = clean_log[line]
+    if value > 1 and (item < -1 or item > 1):
         color.append('r')
     else:
         color.append('k') 
 
 fig, (ax) = plt.subplots()
-ax.scatter(log2, graph_pvals, color = color)
+ax.scatter(clean_log, graph_pvals, color = color)
 ax.hlines(y = 5, xmin = -6, xmax = 4, color = 'k', linestyle = 'dotted')
-ax.vlines(x = 2, ymin = 0, ymax = 250, color = 'k', linestyle = 'dotted')
-ax.vlines(x = -2, ymin = 0, ymax = 250, color = 'k', linestyle = 'dotted')
+ax.vlines(x = 1, ymin = 0, ymax = 250, color = 'k', linestyle = 'dotted')
+ax.vlines(x = -1, ymin = 0, ymax = 250, color = 'k', linestyle = 'dotted')
 ax.set_xlabel("log2FoldChange")
 ax.set_ylabel("-Log10(Q Value)")
 plt.tight_layout()
 plt.show()
 fig.savefig( "volcano.png" )
 plt.close(fig)
-"""
+
 
 
 
